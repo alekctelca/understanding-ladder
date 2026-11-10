@@ -29,10 +29,10 @@ A table, one row per shot:
 
 Rules:
 
-1. One shot, one idea. Narration follows rung-1 rules (English ≤25 words per sentence; Chinese ≤25 characters).
+1. One shot, one idea. Narration follows rung-1 rules (≤25 words per sentence).
 2. The visual appears before or with the narration, never after it.
 3. Open with a title card that says what is coming; close with a recap card.
-4. Plan 60–120 seconds. Estimate ~150 English words or ~200 Chinese characters per minute.
+4. Plan 60–120 seconds. Estimate ~150 words per minute.
 5. When a formula appears, color its symbols to match the objects on screen.
 
 ## Step 3: toolchain
@@ -47,7 +47,7 @@ Rules:
 
 Karpathy's prompt: "Create a 3b1b style video explainer on X", with ElevenLabs for narration. In the replies, people got a free route working with Manim + local Kokoro.
 
-Tools change fast. Open the links and confirm the install steps before recommending them.
+Tools change fast. Open the links and confirm the install steps before recommending them. Links and versions verified 2026-11-10. The storyboard table format is the de-facto contract for showtime ≥ 0.4.0 (`--from-storyboard`); re-check it when showtime updates.
 
 ## Step 4: deliver
 
@@ -59,7 +59,7 @@ Tools change fast. Open the links and confirm the install steps before recommend
    showtime new <template> <dir> --from-storyboard storyboard.md
    ```
 
-   It reads the Markdown table with `Shot | Length | Visual | Narration` or `镜头 | 时长 | 画面 | 旁白` headers, in any column order. Check `showtime --help` for the template names.
+   It reads the Markdown table with `Shot | Length | Visual | Narration` headers, in any column order. Check `showtime --help` for the template names.
 
 4. Otherwise, a prompt ready for the video tool, e.g.:
 

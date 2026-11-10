@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Understanding Ladder Demo</title>
-<meta name="description" content="One explanation, rewritten at every rung of Karpathy's understanding ladder: why server latency explodes past ~80% utilization. 同一段内容，从第 0 级讲到第 4 级。">
+<meta name="description" content="One explanation, rewritten at every rung of Karpathy's understanding ladder: why server latency explodes past ~80% utilization. Одно и то же объяснение на каждой ступени лестницы Карпаты.">
 <style>
   :root {
     --bg: #f7f5ef; --fg: #1c1b19; --muted: #6a675f; --line: #e2ded3; --card: #fffdf8;
@@ -17,10 +17,10 @@
   }
   :root[data-theme="dark"] { --bg: #151513; --fg: #edebe4; --muted: #a29f96; --line: #33312c; --card: #1e1d1a;
     --accent: #ff8a4c; --accent-soft: #3a2316; --blue: #74c0fc; --green: #69db7c; --red: #ff8787; --code: #26251f; }
-  html[lang="en"] .zh, html[lang="zh-CN"] .en { display: none !important; }
+  html[lang="en"] .ru, html[lang="ru"] .en { display: none !important; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--fg);
-    font: 16px/1.75 -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    font: 16px/1.75 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
   main { max-width: 900px; margin: 0 auto; padding: 28px 16px 64px; }
   .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
@@ -61,7 +61,7 @@
   .stat b { font-size: 20px; font-variant-numeric: tabular-nums; }
   .caution { margin-top: 28px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); font-size: 15px; }
   .caution b { color: var(--red); }
-  svg text { font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif; }
+  svg text { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
   footer { margin-top: 32px; font-size: 13px; color: var(--muted); }
   footer a { color: var(--accent); }
   .tries button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: transparent; color: var(--accent); border-radius: 6px; padding: 0 8px; cursor: pointer; }
@@ -72,31 +72,31 @@
 <main>
   <div class="bar">
     <p class="eyebrow">understanding-ladder · demo</p>
-    <button class="lang" id="lang" type="button" aria-label="Switch language"><span class="en">中文</span><span class="zh">English</span></button>
+    <button class="lang" id="lang" type="button" aria-label="Switch language"><span class="en">Русский</span><span class="ru">English</span></button>
   </div>
-  <h1><span class="en">Why does latency explode once a server passes ~80% utilization?</span><span class="zh">为什么服务器利用率过了 80%，延迟会突然暴涨？</span></h1>
-  <p class="sub"><span class="en">One explanation, rewritten at every rung of Karpathy’s understanding ladder. Switch tabs to compare.</span><span class="zh">同一段内容，按 Karpathy 的「理解阶梯」从第 0 级重写到第 4 级。点上面的标签切换。</span></p>
+  <h1><span class="en">Why does latency explode once a server passes ~80% utilization?</span><span class="ru">Почему задержка взлетает, когда загрузка сервера превышает ~80%?</span></h1>
+  <p class="sub"><span class="en">One explanation, rewritten at every rung of Karpathy’s understanding ladder. Switch tabs to compare.</span><span class="ru">Одно и то же объяснение, переписанное на каждой ступени «лестницы понимания» Карпаты: с 0-й по 4-ю. Переключайте вкладки выше.</span></p>
 
   <nav role="tablist">
-    <button role="tab" aria-selected="true" data-t="0"><b><span class="en">0 Default</span><span class="zh">0 默认</span></b><small><span class="en">typical LLM prose</span><span class="zh">AI 常见写法</span></small></button>
-    <button role="tab" aria-selected="false" data-t="1"><b><span class="en">1 Text</span><span class="zh">1 文字</span></b><small><span class="en">plain, nothing cut</span><span class="zh">plain-chinese</span></small></button>
-    <button role="tab" aria-selected="false" data-t="2"><b><span class="en">2 Diagram</span><span class="zh">2 图</span></b><small><span class="en">structure at a glance</span><span class="zh">结构一次摊开</span></small></button>
-    <button role="tab" aria-selected="false" data-t="3"><b><span class="en">3 Page</span><span class="zh">3 网页</span></b><small><span class="en">drag the parameter</span><span class="zh">自己拖参数</span></small></button>
-    <button role="tab" aria-selected="false" data-t="4"><b><span class="en">4 Video</span><span class="zh">4 视频</span></b><small><span class="en">storyboard + tools</span><span class="zh">分镜 + 工具链</span></small></button>
+    <button role="tab" aria-selected="true" data-t="0"><b><span class="en">0 Default</span><span class="ru">0 Обычный</span></b><small><span class="en">typical LLM prose</span><span class="ru">типичный текст LLM</span></small></button>
+    <button role="tab" aria-selected="false" data-t="1"><b><span class="en">1 Text</span><span class="ru">1 Текст</span></b><small><span class="en">plain, nothing cut</span><span class="ru">просто, ничего не вырезано</span></small></button>
+    <button role="tab" aria-selected="false" data-t="2"><b><span class="en">2 Diagram</span><span class="ru">2 Схема</span></b><small><span class="en">structure at a glance</span><span class="ru">структура видна сразу</span></small></button>
+    <button role="tab" aria-selected="false" data-t="3"><b><span class="en">3 Page</span><span class="ru">3 Страница</span></b><small><span class="en">drag the parameter</span><span class="ru">потяни параметр</span></small></button>
+    <button role="tab" aria-selected="false" data-t="4"><b><span class="en">4 Video</span><span class="ru">4 Видео</span></b><small><span class="en">storyboard + tools</span><span class="ru">раскадровка + инструменты</span></small></button>
   </nav>
 
   <!-- Rung 0 -->
   <section role="tabpanel" data-p="0" class="on">
-    <p class="why"><span class="en">Rung 0: what a model usually writes with no constraints. Mostly correct, but you read it twice.</span><span class="zh">第 0 级：模型不加约束时的常见写法。内容大体正确，但要读两三遍。</span></p>
+    <p class="why"><span class="en">Rung 0: what a model usually writes with no constraints. Mostly correct, but you read it twice.</span><span class="ru">Уровень 0: как обычно пишет модель без ограничений. В целом верно, но читать приходится дважды.</span></p>
     <div class="card prose0">
       <p class="en">Great question! It’s worth noting that, from a queueing-theory perspective, server latency exhibits a highly non-linear relationship with utilization. Specifically, when utilization is relatively low, incoming requests can typically be served promptly and queueing delay is largely negligible; however, as utilization climbs past a certain critical range (commonly cited as somewhere around 70–80%), bursty congestion caused by the inherent randomness of the arrival process becomes significantly amplified, causing average waiting time to grow sharply in a manner roughly proportional to 1/(1−ρ), which is precisely why operations teams in real-world production environments tend to provision a degree of headroom rather than maximizing resource utilization. Overall, understanding this is of great importance for capacity planning.</p>
-      <p class="zh">这是一个非常好的问题！值得注意的是，在排队论的视角下，服务器延迟与利用率之间呈现出一种高度非线性的关系。具体而言，当系统利用率处于较低水平时，请求到达后通常能够被及时处理，排队等待时间相对可以忽略不计；然而随着利用率逐步攀升并超过某个临界区间（通常认为在 70%–80% 左右），由于请求到达过程本身存在的随机性所导致的突发性拥塞会被显著放大，进而使得平均等待时间以一种近似于 1/(1−ρ) 的方式急剧增长，这也就是为什么在实际的生产环境中，运维团队往往会倾向于为系统预留一定的容量冗余，而不是追求将资源利用率最大化。总的来说，理解这一点对于容量规划具有重要的指导意义。</p>
+      <p class="ru">Отличный вопрос! Стоит отметить, что с точки зрения теории очередей задержка сервера находится в крайне нелинейной зависимости от загрузки. В частности, при относительно низкой загрузке поступающие запросы, как правило, обслуживаются быстро, и время ожидания в очереди в значительной степени пренебрежимо мало; однако по мере того как загрузка превышает определённый критический диапазон (обычно указывают примерно 70–80%), всплесковая перегрузка, вызванная присущей самому процессу поступления запросов случайностью, значительно усиливается, из-за чего среднее время ожидания начинает резко расти приблизительно пропорционально 1/(1−ρ), — именно поэтому операционные команды в реальных продакшн-окружениях предпочитают закладывать некоторый запас по мощности, вместо того чтобы максимизировать использование ресурсов. В целом, понимание этого имеет важное значение для планирования загрузки.</p>
     </div>
   </section>
 
   <!-- Rung 1 -->
   <section role="tabpanel" data-p="1">
-    <p class="why"><span class="en">Rung 1: about 80% of the way to ASD-STE100. Nothing cut — the sentences are just clean.</span><span class="zh">第 1 级：用 plain-chinese 重写。内容一点没删，只把句子拆干净。</span></p>
+    <p class="why"><span class="en">Rung 1: about 80% of the way to ASD-STE100. Nothing cut — the sentences are just clean.</span><span class="ru">Уровень 1: переписано примерно на 80% пути к ASD-STE100. Ничего не вырезано — предложения просто разобраны.</span></p>
     <div class="card en">
       <p><b>Takeaway:</b> The busier a server is, the longer requests wait. The growth is not steady: past about 80% utilization, waiting time rises sharply.</p>
       <h3>Two terms</h3>
@@ -123,103 +123,103 @@
       <h3>So</h3>
       <p>Operations teams usually keep headroom. They do not push utilization to the maximum.</p>
     </div>
-    <div class="card zh">
-      <p><b>结论</b>：服务器越忙，请求排队越久。而且不是匀速变久——利用率过了 80% 左右，排队时间会急剧变长。</p>
-      <h3>两个术语</h3>
+    <div class="card ru">
+      <p><b>Вывод:</b> Чем сервер загруженнее, тем дольше запросы ждут. Рост неравномерный: после примерно 80% загрузки время ожидания резко растёт.</p>
+      <h3>Два термина</h3>
       <ul>
-        <li><b>利用率（ρ）</b>：服务器忙碌的时间占总时间的比例。ρ = 0.8 表示 80% 的时间在处理请求。</li>
-        <li><b>延迟</b>：一个请求从到达到处理完的总时间，等于「排队时间 + 处理时间」。</li>
+        <li><b>Загрузка (ρ):</b> доля времени, когда сервер занят. ρ = 0.8 значит, что сервер обслуживает запросы 80% времени.</li>
+        <li><b>Задержка:</b> время от поступления запроса до его обслуживания. Задержка = время ожидания + время обслуживания.</li>
       </ul>
-      <h3>为什么会暴涨</h3>
-      <p>请求不是均匀到达的。有时一秒来很多，有时一个也不来。请求扎堆来时，后到的请求要排队。</p>
-      <p>服务器空闲多时，队伍很快就能清空。服务器空闲少时，上一波队伍还没清空，下一波又来了。队伍越积越长。</p>
-      <p>在最简单的排队模型（M/M/1）里，平均延迟是：</p>
-      <p><span class="formula">延迟 = 处理时间 ÷ (1 − ρ)</span></p>
-      <p>分母 (1 − ρ) 是服务器的空闲比例。ρ 接近 1 时，分母接近 0，延迟就冲向无穷大。</p>
-      <h3>算一下</h3>
-      <p>假设处理一个请求平均要 10 毫秒：</p>
+      <h3>Почему она взлетает</h3>
+      <p>Запросы приходят неравномерно. Иногда за секунду приходит много, иногда — ни одного. Когда запросы приходят пачками, более поздние ждут.</p>
+      <p>Если сервер часто простаивает, очередь рассасывается быстро. Если сервер простаивает редко, к приходу следующей пачки прошлая очередь ещё не рассеялась. Очередь растёт.</p>
+      <p>В простейшей модели очереди (M/M/1) средняя задержка равна:</p>
+      <p><span class="formula">задержка = время обслуживания ÷ (1 − ρ)</span></p>
+      <p>Знаменатель (1 − ρ) — это доля времени, когда сервер простаивает. Когда ρ приближается к 1, знаменатель приближается к 0, и задержка устремляется к бесконечности.</p>
+      <h3>Цифры</h3>
+      <p>Допустим, обслуживание одного запроса занимает в среднем 10 мс:</p>
       <div class="scroll"><table>
-        <tr><th>利用率 ρ</th><th>平均延迟</th><th>比空闲时慢几倍</th></tr>
-        <tr><td class="num">50%</td><td class="num">20 毫秒</td><td class="num">2 倍</td></tr>
-        <tr><td class="num">80%</td><td class="num">50 毫秒</td><td class="num">5 倍</td></tr>
-        <tr><td class="num">90%</td><td class="num">100 毫秒</td><td class="num">10 倍</td></tr>
-        <tr><td class="num">95%</td><td class="num">200 毫秒</td><td class="num">20 倍</td></tr>
+        <tr><th>Загрузка ρ</th><th>Средняя задержка</th><th>× задержка в простое</th></tr>
+        <tr><td class="num">50%</td><td class="num">20 мс</td><td class="num">2×</td></tr>
+        <tr><td class="num">80%</td><td class="num">50 мс</td><td class="num">5×</td></tr>
+        <tr><td class="num">90%</td><td class="num">100 мс</td><td class="num">10×</td></tr>
+        <tr><td class="num">95%</td><td class="num">200 мс</td><td class="num">20×</td></tr>
       </table></div>
-      <p>从 50% 到 80%，利用率多了 30 个百分点，延迟多了 30 毫秒。从 90% 到 95%，利用率只多了 5 个百分点，延迟却多了 100 毫秒。</p>
-      <h3>所以</h3>
-      <p>运维团队通常给服务器留出余量，不把利用率推到最高。</p>
+      <p>С 50% до 80% загрузка выросла на 30 процентных пунктов, а задержка — на 30 мс. С 90% до 95% загрузка выросла всего на 5 пунктов, а задержка — на 100 мс.</p>
+      <h3>Итого</h3>
+      <p>Операционные команды обычно держат запас по мощности. Они не доводят загрузку до максимума.</p>
     </div>
   </section>
 
   <!-- Rung 2 -->
   <section role="tabpanel" data-p="2">
-    <p class="why"><span class="en">Rung 2: a diagram. Structure that text explains sentence by sentence is laid out at once: left, why requests queue; right, how long they wait.</span><span class="zh">第 2 级：图。文字要一句一句讲的结构，图一次摊开：左边是「为什么排队」，右边是「排多久」。</span></p>
+    <p class="why"><span class="en">Rung 2: a diagram. Structure that text explains sentence by sentence is laid out at once: left, why requests queue; right, how long they wait.</span><span class="ru">Уровень 2: схема. Структура, которую текст разбирает по одной фразе, на схеме видна сразу: слева — «почему копится очередь», справа — «сколько ждать».</span></p>
     <div class="card">
       <svg viewBox="0 0 860 330" width="100%" role="img" aria-label="Queue diagram and latency curve">
         <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
         <g style="color: var(--muted)">
-          <text x="20" y="28" font-size="15" font-weight="600" fill="var(--fg)"><tspan class="en">① Random arrivals queue up in bursts</tspan><tspan class="zh">① 请求随机到达，扎堆时排队</tspan></text>
+          <text x="20" y="28" font-size="15" font-weight="600" fill="var(--fg)"><tspan class="en">① Random arrivals queue up in bursts</tspan><tspan class="ru">① Запросы приходят случайно, пачками образуя очередь</tspan></text>
           <g font-size="13" fill="var(--muted)">
             <circle cx="40" cy="96" r="7" fill="var(--blue)"/><circle cx="58" cy="96" r="7" fill="var(--blue)"/><circle cx="92" cy="96" r="7" fill="var(--blue)"/>
-            <text x="22" y="128"><tspan class="en">random arrivals</tspan><tspan class="zh">随机到达</tspan></text>
+            <text x="22" y="128"><tspan class="en">random arrivals</tspan><tspan class="ru">случайные заходы</tspan></text>
             <line x1="112" y1="96" x2="150" y2="96" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
             <rect x="156" y="74" width="150" height="44" rx="8" fill="none" stroke="var(--line)" stroke-width="2"/>
             <circle cx="180" cy="96" r="7" fill="var(--accent)"/><circle cx="200" cy="96" r="7" fill="var(--accent)"/><circle cx="220" cy="96" r="7" fill="var(--accent)"/><circle cx="240" cy="96" r="7" fill="var(--accent)"/>
-            <text x="196" y="140"><tspan class="en">queue</tspan><tspan class="zh">队列</tspan></text>
+            <text x="196" y="140"><tspan class="en">queue</tspan><tspan class="ru">очередь</tspan></text>
             <line x1="310" y1="96" x2="348" y2="96" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar)"/>
             <rect x="354" y="70" width="72" height="52" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
-            <text x="366" y="101" fill="var(--fg)"><tspan class="en">server</tspan><tspan class="zh">服务器</tspan></text>
-            <text x="350" y="140"><tspan class="en">one at a time</tspan><tspan class="zh">一次处理一个</tspan></text>
+            <text x="366" y="101" fill="var(--fg)"><tspan class="en">server</tspan><tspan class="ru">сервер</tspan></text>
+            <text x="350" y="140"><tspan class="en">one at a time</tspan><tspan class="ru">по одному за раз</tspan></text>
           </g>
           <g font-size="14" fill="var(--fg)">
-            <text x="20" y="190"><tspan class="en">latency = waiting + service</tspan><tspan class="zh">延迟 = 排队时间 + 处理时间</tspan></text>
-            <text x="20" y="218"><tspan class="en">often idle → queue clears fast</tspan><tspan class="zh">空闲时间多 → 队伍很快清空</tspan></text>
-            <text x="20" y="246"><tspan class="en">rarely idle → next burst arrives first</tspan><tspan class="zh">空闲时间少 → 上一波没清空，下一波又来</tspan></text>
-            <text x="20" y="274" fill="var(--red)"><tspan class="en">→ the queue keeps growing</tspan><tspan class="zh">→ 队伍越积越长</tspan></text>
+            <text x="20" y="190"><tspan class="en">latency = waiting + service</tspan><tspan class="ru">задержка = ожидание + обслуживание</tspan></text>
+            <text x="20" y="218"><tspan class="en">often idle → queue clears fast</tspan><tspan class="ru">много простоев → очередь рассасывается быстро</tspan></text>
+            <text x="20" y="246"><tspan class="en">rarely idle → next burst arrives first</tspan><tspan class="ru">мало простоев → прошлая пачка не ушла, приходит следующая</tspan></text>
+            <text x="20" y="274" fill="var(--red)"><tspan class="en">→ the queue keeps growing</tspan><tspan class="ru">→ очередь растёт</tspan></text>
           </g>
-          <text x="480" y="28" font-size="15" font-weight="600" fill="var(--fg)"><tspan class="en">② latency = service ÷ (1 − ρ)</tspan><tspan class="zh">② 延迟 = 处理时间 ÷ (1 − ρ)</tspan></text>
+          <text x="480" y="28" font-size="15" font-weight="600" fill="var(--fg)"><tspan class="en">② latency = service ÷ (1 − ρ)</tspan><tspan class="ru">② задержка = обслуживание ÷ (1 − ρ)</tspan></text>
           <line x1="500" y1="290" x2="840" y2="290" stroke="var(--line)" stroke-width="1.5"/>
           <line x1="500" y1="290" x2="500" y2="50" stroke="var(--line)" stroke-width="1.5"/>
-          <text x="640" y="326" font-size="13" fill="var(--muted)"><tspan class="en">utilization ρ →</tspan><tspan class="zh">利用率 ρ →</tspan></text>
-          <text x="506" y="62" font-size="13" fill="var(--muted)"><tspan class="en">latency</tspan><tspan class="zh">延迟</tspan></text>
+          <text x="640" y="326" font-size="13" fill="var(--muted)"><tspan class="en">utilization ρ →</tspan><tspan class="ru">загрузка ρ →</tspan></text>
+          <text x="506" y="62" font-size="13" fill="var(--muted)"><tspan class="en">latency</tspan><tspan class="ru">задержка</tspan></text>
           <path id="l2curve" fill="none" stroke="var(--accent)" stroke-width="3"/>
           <g id="l2marks" font-size="12" fill="var(--muted)"></g>
         </g>
       </svg>
-      <p style="font-size:14px;color:var(--muted)"><span class="en">How to read it: on the left, follow one request from left to right. On the right, the curve is average latency vs utilization (10 ms service time). It is nearly flat until 80%, then almost vertical.</span><span class="zh">怎么读：左边从左往右，是一个请求经过的路径。右边的曲线是平均延迟随利用率的变化（处理时间 10 毫秒）。曲线在 80% 之前很平，之后几乎竖直向上。</span></p>
+      <p style="font-size:14px;color:var(--muted)"><span class="en">How to read it: on the left, follow one request from left to right. On the right, the curve is average latency vs utilization (10 ms service time). It is nearly flat until 80%, then almost vertical.</span><span class="ru">Как читать: слева пройдите один запрос слева направо. Справа — кривая средней задержки в зависимости от загрузки (время обслуживания 10 мс). До 80% кривая почти плоская, дальше почти вертикальная.</span></p>
     </div>
   </section>
 
   <!-- Rung 3 -->
   <section role="tabpanel" data-p="3">
-    <p class="why"><span class="en">Rung 3: a page. With text you trust the author; with a slider you see where latency takes off.</span><span class="zh">第 3 级：网页。读文字时只能相信作者；拖动滑块时，你亲眼看到延迟在哪里开始暴涨。</span></p>
+    <p class="why"><span class="en">Rung 3: a page. With text you trust the author; with a slider you see where latency takes off.</span><span class="ru">Уровень 3: страница. С текстом вы вынуждены верить автору; с ползунком вы сами видите, где задержка начинает взлетать.</span></p>
     <div class="card">
       <div class="ctrl">
-        <label><span class="en">Utilization ρ:</span><span class="zh">利用率 ρ：</span> <b id="rhoV"></b><input id="rho" type="range" min="0.05" max="0.98" step="0.01" value="0.5"></label>
-        <label><span class="en">Mean service time:</span><span class="zh">平均处理时间：</span> <b id="sV"></b><input id="s" type="range" min="1" max="50" step="1" value="10"></label>
+        <label><span class="en">Utilization ρ:</span><span class="ru">Загрузка ρ:</span> <b id="rhoV"></b><input id="rho" type="range" min="0.05" max="0.98" step="0.01" value="0.5"></label>
+        <label><span class="en">Mean service time:</span><span class="ru">Среднее время обслуживания:</span> <b id="sV"></b><input id="s" type="range" min="1" max="50" step="1" value="10"></label>
       </div>
       <canvas id="curve"></canvas>
       <div class="stat">
-        <div><small><span class="en">Average latency</span><span class="zh">平均延迟</span></small><b id="w"></b></div>
-        <div><small><span class="en">of which waiting</span><span class="zh">其中排队</span></small><b id="q"></b></div>
-        <div><small><span class="en">× idle latency</span><span class="zh">比空闲时慢</span></small><b id="x"></b></div>
+        <div><small><span class="en">Average latency</span><span class="ru">Средняя задержка</span></small><b id="w"></b></div>
+        <div><small><span class="en">of which waiting</span><span class="ru">из них ожидание</span></small><b id="q"></b></div>
+        <div><small><span class="en">× idle latency</span><span class="ru">× задержка в простое</span></small><b id="x"></b></div>
       </div>
       <canvas id="sim" aria-label="Queue simulation"></canvas>
-      <p style="font-size:13px;color:var(--muted);margin:4px 0 0"><span class="en">The animation is a random simulation: requests arrive at the current utilization; orange dots are the queue. Drag ρ above 0.9 and watch it grow.</span><span class="zh">下面的动画是一个随机模拟：请求按当前利用率随机到达，橙色是队伍。把 ρ 拖到 0.9 以上，看队伍怎么变长。</span></p>
-      <h3><span class="en">Try this</span><span class="zh">试试这样拖</span></h3>
+      <p style="font-size:13px;color:var(--muted);margin:4px 0 0"><span class="en">The animation is a random simulation: requests arrive at the current utilization; orange dots are the queue. Drag ρ above 0.9 and watch it grow.</span><span class="ru">Анимация ниже — случайная симуляция: запросы приходят случайно с текущей загрузкой, оранжевым показана очередь. Перетащите ρ выше 0.9 и посмотрите, как растёт очередь.</span></p>
+      <h3><span class="en">Try this</span><span class="ru">Попробуйте так</span></h3>
       <ol class="tries">
-        <li><span class="en">Drag slowly from 0.5 to 0.8. How much did latency grow?</span><span class="zh">从 0.5 慢慢拖到 0.8，看延迟涨了多少。</span> <button data-r="0.8">0.8</button></li>
-        <li><span class="en">Go from 0.9 to 0.95: only 5 more points, and latency doubles.</span><span class="zh">从 0.9 拖到 0.95，只多 5 个百分点，延迟翻倍。</span> <button data-r="0.95">0.95</button></li>
-        <li><span class="en">Change the service time: the curve keeps its shape and only scales up or down.</span><span class="zh">改「平均处理时间」：曲线形状不变，只是整体变高或变低。</span></li>
+        <li><span class="en">Drag slowly from 0.5 to 0.8. How much did latency grow?</span><span class="ru">Медленно перетащите с 0.5 до 0.8 и посмотрите, насколько выросла задержка.</span> <button data-r="0.8">0.8</button></li>
+        <li><span class="en">Go from 0.9 to 0.95: only 5 more points, and latency doubles.</span><span class="ru">Перетащите с 0.9 до 0.95: всего 5 процентных пунктов, а задержка удваивается.</span> <button data-r="0.95">0.95</button></li>
+        <li><span class="en">Change the service time: the curve keeps its shape and only scales up or down.</span><span class="ru">Измените «среднее время обслуживания»: форма кривой не меняется, она только поднимается или опускается целиком.</span></li>
       </ol>
     </div>
   </section>
 
   <!-- Rung 4 -->
   <section role="tabpanel" data-p="4">
-    <p class="why"><span class="en">Rung 4: an explainer video. understanding-ladder does not render video; it delivers the storyboard, the toolchain, and a prompt to hand to a video tool.</span><span class="zh">第 4 级：讲解视频。understanding-ladder 不渲染视频，只交付文字稿、分镜、工具链和一段可以直接交给视频工具的 prompt。</span></p>
+    <p class="why"><span class="en">Rung 4: an explainer video. understanding-ladder does not render video; it delivers the storyboard, the toolchain, and a prompt to hand to a video tool.</span><span class="ru">Уровень 4: обучающее видео. understanding-ladder не рендерит видео — он отдаёт сценарий, раскадровку, инструменты и готовый промпт для видеоинструмента.</span></p>
     <div class="card">
-      <h3 style="margin-top:0"><span class="en">Storyboard (~75 s)</span><span class="zh">分镜（约 75 秒）</span></h3>
+      <h3 style="margin-top:0"><span class="en">Storyboard (~75 s)</span><span class="ru">Раскадровка (~75 с)</span></h3>
       <div class="scroll en"><table>
         <tr><th>#</th><th>Length</th><th>Visual</th><th>Narration</th></tr>
         <tr><td>1</td><td>5 s</td><td>Title card</td><td>This video explains one thing: why a server slows down sharply past 80%.</td></tr>
@@ -230,33 +230,33 @@
         <tr><td>6</td><td>12 s</td><td>Four rows appear: 2×, 5×, 10×, 20×</td><td>With 10 ms service time, latency goes from 20 ms at 50% to 200 ms at 95%.</td></tr>
         <tr><td>7</td><td>10 s</td><td>Recap card</td><td>To recap: latency depends on idle time. Keep headroom.</td></tr>
       </table></div>
-      <div class="scroll zh"><table>
-        <tr><th>#</th><th>时长</th><th>画面</th><th>旁白</th></tr>
-        <tr><td>1</td><td>5 秒</td><td>标题卡</td><td>这段视频讲一件事：服务器为什么在 80% 之后突然变慢。</td></tr>
-        <tr><td>2</td><td>10 秒</td><td>蓝点随机落进一条队列，服务器一次处理一个</td><td>请求随机到达。服务器一次只能处理一个。</td></tr>
-        <tr><td>3</td><td>12 秒</td><td>ρ = 0.5：队伍时有时无</td><td>服务器一半时间空闲。队伍偶尔出现，很快清空。</td></tr>
-        <tr><td>4</td><td>12 秒</td><td>ρ = 0.9：队伍不断变长</td><td>服务器九成时间在忙。上一波还没清空，下一波又来了。</td></tr>
-        <tr><td>5</td><td>14 秒</td><td>右侧画出曲线 1/(1−ρ)，一个点沿曲线滑到 0.95</td><td>平均延迟等于处理时间除以空闲比例。空闲比例接近零，延迟冲向无穷大。</td></tr>
-        <tr><td>6</td><td>12 秒</td><td>四行数字依次出现：2 倍、5 倍、10 倍、20 倍</td><td>处理时间 10 毫秒时，从 50% 到 95%，延迟从 20 毫秒涨到 200 毫秒。</td></tr>
-        <tr><td>7</td><td>10 秒</td><td>回顾卡</td><td>回顾：延迟取决于空闲比例。给服务器留余量。</td></tr>
+      <div class="scroll ru"><table>
+        <tr><th>#</th><th>Длина</th><th>Визуал</th><th>Закадровый текст</th></tr>
+        <tr><td>1</td><td>5 с</td><td>Титульный кадр</td><td>Это видео объясняет одну вещь: почему сервер резко замедляется после 80% загрузки.</td></tr>
+        <tr><td>2</td><td>10 с</td><td>Синие точки падают в очередь, сервер берёт по одной</td><td>Запросы приходят случайно. Сервер обслуживает их по одному.</td></tr>
+        <tr><td>3</td><td>12 с</td><td>ρ = 0.5: очередь появляется и рассасывается</td><td>Сервер простаивает половину времени. Очередь появляется изредка и быстро рассасывается.</td></tr>
+        <tr><td>4</td><td>12 с</td><td>ρ = 0.9: очередь продолжает расти</td><td>Сервер занят 90% времени. Следующая пачка приходит до того, как очередь рассеялась.</td></tr>
+        <tr><td>5</td><td>14 с</td><td>Справа рисуется кривая 1/(1−ρ), точка скользит к 0.95</td><td>Средняя задержка — это время обслуживания, делённое на долю простоя. Когда доля простоя стремится к нулю, задержка уходит в бесконечность.</td></tr>
+        <tr><td>6</td><td>12 с</td><td>Появляются четыре строки: 2×, 5×, 10×, 20×</td><td>При времени обслуживания 10 мс задержка растёт с 20 мс при 50% до 200 мс при 95%.</td></tr>
+        <tr><td>7</td><td>10 с</td><td>Итоговый кадр</td><td>Итог: задержка зависит от доли простоя. Оставляйте запас по мощности.</td></tr>
       </table></div>
-      <h3><span class="en">Toolchain</span><span class="zh">工具链</span></h3>
+      <h3><span class="en">Toolchain</span><span class="ru">Инструменты</span></h3>
       <ul>
-        <li><a href="https://github.com/FavioVazquez/showtime">showtime</a>: <span class="en">open source; your coding agent renders video locally. Since 0.4.0 it reads this storyboard table directly (<code>--from-storyboard</code>).</span><span class="zh">开源，让 coding agent 在本机渲染视频。0.4.0 起能直接读取这张分镜表（<code>--from-storyboard</code>）。</span></li>
-        <li><a href="https://www.manim.community/">Manim Community</a>: <span class="en">the 3Blue1Brown-style math animation library.</span><span class="zh">3Blue1Brown 风格的数学动画库。</span></li>
-        <li><a href="https://github.com/thewh1teagle/kokoro-onnx">kokoro-onnx</a>: <span class="en">free local voice. Or ElevenLabs (API key needed).</span><span class="zh">免费本地配音。或用 ElevenLabs（需要 API key）。</span></li>
+        <li><a href="https://github.com/FavioVazquez/showtime">showtime</a>: <span class="en">open source; your coding agent renders video locally. Since 0.4.0 it reads this storyboard table directly (<code>--from-storyboard</code>).</span><span class="ru">Открытый исходный код: ваш coding agent рендерит видео локально. Начиная с 0.4.0 читает эту таблицу раскадровки напрямую (<code>--from-storyboard</code>).</span></li>
+        <li><a href="https://www.manim.community/">Manim Community</a>: <span class="en">the 3Blue1Brown-style math animation library.</span><span class="ru">Библиотека математической анимации в стиле 3Blue1Brown.</span></li>
+        <li><a href="https://github.com/thewh1teagle/kokoro-onnx">kokoro-onnx</a>: <span class="en">free local voice. Or ElevenLabs (API key needed).</span><span class="ru">Бесплатный локальный голос. Или ElevenLabs (нужен API key).</span></li>
       </ul>
-      <h3><span class="en">Prompt for the video tool</span><span class="zh">交给视频工具的 prompt</span></h3>
+      <h3><span class="en">Prompt for the video tool</span><span class="ru">Промпт для видеоинструмента</span></h3>
       <p><code>Create a 3b1b style video explainer, about 75 seconds, on why server latency explodes past ~80% utilization. Follow this storyboard exactly: […]. Free local TTS voice. Burn in captions.</code></p>
     </div>
   </section>
 
   <div class="caution">
     <span class="en"><b>Easier to understand ≠ verified.</b> The ladder lowers the cost of understanding, not the cost of checking. This page uses the simplest M/M/1 model: exponential arrivals and service times, one server. Real systems give different numbers, but “latency rises sharply near full load” holds broadly.</span>
-    <span class="zh"><b>好懂 ≠ 已验证。</b>阶梯降低的是理解成本，不是验证成本。本页用的是最简单的 M/M/1 模型：到达和处理时间都服从指数分布，只有一台服务器。真实系统的数字会不同，但「接近满载时延迟急剧上升」这个规律普遍成立。</span>
+    <span class="ru"><b>Понятнее ≠ проверено.</b> Лестница снижает стоимость понимания, а не стоимость проверки. На странице используется простейшая модель M/M/1: экспоненциальные поступления и времена обслуживания, один сервер. В реальных системах числа будут другими, но общий закон «при приближении к полной загрузке задержка резко растёт» выполняется широко.</span>
   </div>
 
-  <footer><span class="en">Demo for</span><span class="zh">演示：</span> <a href="https://github.com/ChangWenC/understanding-ladder">understanding-ladder</a>. <span class="en">Inspired by</span><span class="zh">受</span> <a href="https://x.com/karpathy/status/2105819303471976479"><span class="en">Andrej Karpathy’s post</span><span class="zh">Andrej Karpathy 的帖子</span></a><span class="zh">启发</span>. <span class="en">Single file, no dependencies.</span><span class="zh">单文件，无依赖。</span></footer>
+  <footer><span class="en">Demo for</span><span class="ru">Демо для</span> <a href="https://github.com/ChangWenC/understanding-ladder">understanding-ladder</a>. <span class="en">Inspired by</span><span class="ru">вдохновлён</span> <a href="https://x.com/karpathy/status/2105819303471976479"><span class="en">Andrej Karpathy’s post</span><span class="ru">постом Андрея Карпаты</span></a>. <span class="en">Single file, no dependencies.</span><span class="ru">Один файл, без зависимостей.</span></footer>
 </main>
 <script>
 const $ = id => document.getElementById(id);
@@ -266,23 +266,23 @@ const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).
 
 // language: ?lang= > saved > browser
 function initialLang() {
-  const q = params.get('lang'); if (q === 'en' || q === 'zh') return q;
-  try { const s = localStorage.getItem('ul-lang'); if (s === 'en' || s === 'zh') return s; } catch (e) {}
-  return /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+  const q = params.get('lang'); if (q === 'en' || q === 'ru') return q;
+  try { const s = localStorage.getItem('ul-lang'); if (s === 'en' || s === 'ru') return s; } catch (e) {}
+  return /^ru/i.test(navigator.language || '') ? 'ru' : 'en';
 }
 let lang = initialLang();
 const T = {
   en: { ms: ' ms', x: '×', pct: '%', ylab: 'average latency', danger: 'danger zone', queue: 'queue length: ', over: ' (too many to draw)', busy: 'busy', idle: 'idle' },
-  zh: { ms: ' 毫秒', x: ' 倍', pct: '%', ylab: '平均延迟', danger: '危险区', queue: '队伍长度：', over: '（画不下了）', busy: '处理中', idle: '空闲' }
+  ru: { ms: ' мс', x: '×', pct: '%', ylab: 'средняя задержка', danger: 'зона опасности', queue: 'длина очереди: ', over: ' (не помещается)', busy: 'занят', idle: 'простаивает' }
 };
 function setLang(l) {
   lang = l;
-  document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
-  document.title = l === 'zh' ? '理解阶梯演示' : 'Understanding Ladder Demo';
+  document.documentElement.lang = l === 'ru' ? 'ru' : 'en';
+  document.title = l === 'ru' ? 'Лестница понимания — демо' : 'Understanding Ladder Demo';
   try { localStorage.setItem('ul-lang', l); } catch (e) {}
   draw();
 }
-$('lang').addEventListener('click', () => setLang(lang === 'en' ? 'zh' : 'en'));
+$('lang').addEventListener('click', () => setLang(lang === 'en' ? 'ru' : 'en'));
 
 // tabs
 const tabs = [...document.querySelectorAll('[role=tab]')];

@@ -27,16 +27,17 @@ Top to bottom:
 ## Step 3: technical requirements
 
 - **One HTML file**, CSS and JS inline. No npm, no build. Double-click to open.
-- Prefer plain JS with `<canvas>` or `<svg>`. If a chart library is truly needed, load one from a CDN (e.g. Chart.js) and keep the text readable offline.
+- Prefer plain JS with `<canvas>` or `<svg>`. The page must work fully offline: no external requests. If a chart library is truly needed, a CDN (e.g. Chart.js) is an explicit fallback — the page must degrade acceptably without network, and the degradation must be stated on the page.
 - Recompute and redraw **live** while dragging, not on release.
 - Works on phones: fluid width, large sliders.
 - Color carries meaning: one quantity, one color, in the plot and in the text.
+- Escape every dynamic string before inserting it into HTML. Never build markup from user-provided text with unescaped `innerHTML`.
 - Optional: a "copy current parameters" button so the reader can send a setting back to the agent.
 
 ## Step 4: deliver
 
 1. Save the file in the working directory with a descriptive name, e.g. `queue-latency-explainer.html`.
-2. Tell the user the path. Open it in a browser if the environment allows.
+2. Tell the user the path. Offer to open it in a browser; open it only after the user agrees.
 3. In chat, 2–3 sentences: what the page shows and which slider to move first.
 
 ## Self-check

@@ -23,7 +23,7 @@ Write the plain-text draft (rung-1 rules). Every node and edge must appear in th
 
 ## Step 3: draw
 
-1. ≤8 words (≤8 Chinese characters) per box. Nouns in boxes, verbs on edges.
+1. ≤8 words per box. Nouns in boxes, verbs on edges.
 2. ≤12 nodes. More than that: split into two diagrams, or collapse detail into a sub-process box.
 3. Same kind of thing, same shape. E.g. data = rounded box, step = rectangle, decision = diamond.
 4. One direction: left→right or top→bottom.
@@ -33,7 +33,7 @@ Where to output:
 
 - If the chat UI renders Mermaid, output a Mermaid code block.
 - If layout, color, or annotations matter, write a single-file SVG or HTML in the working directory.
-- In Mermaid, quote labels that contain parentheses, quotes, or colons: `A["input (x)"]`. For non-ASCII state names in `stateDiagram-v2`, declare them: `state "已支付" as paid`.
+- In Mermaid, quote labels that contain parentheses, quotes, or colons: `A["input (x)"]`. For non-ASCII state names in `stateDiagram-v2`, declare them: `state "Оплачено" as paid`.
 
 ## Step 4: say how to read it
 

@@ -6,7 +6,7 @@
 
 The output is a single-file HTML page with every rung side by side (demo mode):
 
-- Live: <https://changwenc.github.io/understanding-ladder/docs/demo/?lang=en>
-- Source: [docs/demo/index.html](../../../docs/demo/index.html)
+- Source: [docs/demo/index.html](../../../docs/demo/index.html) — one file, no dependencies, open it locally.
+- The page is bilingual EN/RU; switch with the button in the top bar or pass `?lang=ru`.
 
 Start on tab **3 Page** and drag utilization from 0.9 to 0.95: five more points, double the latency.

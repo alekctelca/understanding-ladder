@@ -1,8 +1,9 @@
 # Assets
 
 - `hero-en.png` / `social-preview.png`: English before/after (README first screen; GitHub social preview, 1280×640). Source: `hero-en.html`.
-- `hero.png`: Chinese before/after for `README.zh-CN.md`. Source: `hero.html`.
-- `ladder-demo-en.gif` / `ladder-demo.gif`: rung 0–4 frames of `../demo/index.html` (`?lang=en` / `?lang=zh`).
+- `ladder-demo-en.gif`: rung 0–4 frames of `../demo/index.html` (`?lang=en`).
+
+The demo page is bilingual EN/RU. There is no Chinese variant in this fork.
 
 Re-render (macOS, Chrome, ImageMagick):
 

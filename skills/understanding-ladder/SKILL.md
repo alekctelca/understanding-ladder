@@ -1,6 +1,6 @@
 ---
 name: understanding-ladder
-description: Pick the output format that makes an explanation easiest to understand, following Karpathy's understanding ladder — (1) plain controlled text, (2) diagram, (3) interactive HTML page, (4) 3Blue1Brown-style explainer video. Classify the content (definition/steps, process/causality, parameter→outcome, unfolding derivation), recommend the lowest rung that fully answers, then produce it. Works in English and Chinese. Use when the user says "explain this clearly", "help me understand", "draw a diagram", "make it interactive", "make an explainer video", "what's the best way to explain X", "understanding ladder", "Karpathy ladder", or 「讲清楚」「帮我理解」「画个图」「做个交互页」「做个讲解视频」「用哪种方式讲最好懂」「理解阶梯」; also when explaining a non-trivial concept, mechanism, algorithm, or an AI agent's output.
+description: Pick the output format that makes an explanation easiest to understand, following Karpathy's understanding ladder — (1) plain controlled text, (2) diagram, (3) interactive HTML page, (4) 3Blue1Brown-style explainer video. Classify the content (definition/steps, process/causality, parameter→outcome, unfolding derivation), recommend the lowest rung that fully answers, then produce it. Use when the user says "explain this clearly", "help me understand", "draw a diagram", "make it interactive", "make an explainer video", "what's the best way to explain X", "understanding ladder", "Karpathy ladder", or «объясни понятно», «объясни наглядно», «нарисуй схему», «сделай интерактивную страницу», «сделай обучающее видео», «как лучше это объяснить», «лестница понимания»; also when explaining a non-trivial concept, mechanism, algorithm, or an AI agent's output.
 ---
 
 # Understanding ladder
@@ -48,7 +48,6 @@ Open with one line that states the choice, then produce it. Do not ask "which ru
 
 Pick the rules by output language:
 
-- **Chinese** → use the `plain-chinese` skill (as a plugin it may be named `understanding-ladder:plain-chinese`). Chinese has no "ASD-STE100" to invoke, so that skill spells the rules out.
 - **English** → write "about 80% of the way to ASD-STE100" (Karpathy's phrasing), with these rules made explicit:
   - One idea per sentence. Aim for ≤20 words in instructions, ≤25 in descriptions.
   - One term per meaning. Define a term the first time; never rotate synonyms.
@@ -58,7 +57,7 @@ Pick the rules by output language:
   - No filler ("It's worth noting", "Great question", "In summary…").
   - **Nothing cut.** Keep every fact, number, condition, and hedge ("usually", "may"). Simple language, not less content — the rewrite may be longer.
   - Do not touch code, commands, paths, quoted errors, or proper names.
-- **Other languages** → apply the English rules in that language.
+- **Russian and other languages** → apply the same rules in that language. Treat the word-count limits as targets, not hard caps: words in Russian are longer.
 
 ### Rung 2: diagram
 
@@ -66,7 +65,7 @@ See [references/level-2-diagram.md](references/level-2-diagram.md). In short:
 
 - Choose the diagram type first: flowchart, sequence, state, hierarchy, causal graph, comparison table.
 - Default to Mermaid (renders in most chat UIs and on GitHub). Use a single-file SVG/HTML when layout matters.
-- ≤8 words (or ≤8 Chinese characters) per box. Below the diagram, 2–4 sentences on how to read it.
+- ≤8 words per box. Below the diagram, 2–4 sentences on how to read it.
 
 ### Rung 3: interactive HTML page
 
@@ -75,7 +74,7 @@ See [references/level-3-html.md](references/level-3-html.md). In short:
 - One self-contained HTML file. No build step; double-click to open.
 - One job: let the reader move the **1–3 parameters that matter** and see the result update live.
 - Layout: one-line takeaway → interactive area → rung-1 text → "try this" prompts → limits and what to check.
-- Save it in the working directory, tell the user the path, open it if the environment allows.
+- Save it in the working directory, tell the user the path, and offer to open it in a browser — open it only after the user agrees.
 
 ### Rung 4: explainer video
 
@@ -87,7 +86,7 @@ See [references/level-4-video.md](references/level-4-video.md). This skill **doe
 
 ## Demo mode: same content, every rung
 
-When the user says "show all rungs", "walk this from rung 1 to 4", 「逐级演示」:
+When the user says "show all rungs" or "walk this from rung 1 to 4":
 
 1. Rung 0: the usual default prose, as a baseline.
 2. Rung 1: plain text.
